@@ -22,7 +22,7 @@ RUN curl -sSL https://install.python-poetry.org | python3 -
 ENV PATH="/root/.local/bin:$PATH"
 
 # Install project dependencies using Poetry
-RUN poetry install --no-root
+#RUN poetry install --no-root
 
 # --- Java Installation ---
 FROM base AS java-installer

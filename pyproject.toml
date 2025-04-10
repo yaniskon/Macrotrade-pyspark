@@ -13,6 +13,7 @@ pyarrow = "^12.0.0"
 # That gets downloaded in `.gitpod.Dockerfile`
 pyspark = "3.5.1"
 python = "~3.11"
+requests = "^2.32.3"
 
 [tool.poetry.dev-dependencies]
 pylint = "^2.8.2"
