@@ -176,6 +176,18 @@ files = [
 ]
 
 [[package]]
+name = "comtradeapicall"
+version = "1.2.1"
+description = "A package to call UN Comtrade APIs"
+optional = false
+python-versions = ">=3.7"
+groups = ["main"]
+files = [
+    {file = "comtradeapicall-1.2.1-py3-none-any.whl", hash = "sha256:cc08ab2c48a2dfcd5b9adc3241f5a2559156660ba640868330408d67fb360518"},
+    {file = "comtradeapicall-1.2.1.tar.gz", hash = "sha256:42f42294a90a4f83894c997cb29ac4801158296ceb9458b5f0196096c48d5815"},
+]
+
+[[package]]
 name = "dill"
 version = "0.3.9"
 description = "serialize all of Python"
@@ -871,4 +883,4 @@ files = [
 [metadata]
 lock-version = "2.1"
 python-versions = "~3.11"
-content-hash = "b3b9be2fefa23a13ec365c0240adff2968d817fa5fdc2dea6984124b014d69c0"
+content-hash = "d94a7f7839dcff3e4bd1d79855aa417e616a57ec5847c73bf6285ad2c52929a5"
