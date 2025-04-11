@@ -69,7 +69,7 @@ if __name__ == "__main__":
 
     # Example: save output 2 levels up in a folder called 'comtrade_parquet'
     script_path = Path(__file__).resolve()
-    output_path = script_path.parent.parent.parent / "comtrade_parquet"
+    output_path = script_path.parent.parent.parent / "resources/reference_tables"
 
     run(spark, str(output_path))
 
