@@ -10,9 +10,9 @@ conn = duckdb.connect()
 
 # Read and create tables
 conn.execute(f"""
-    CREATE TABLE reporters AS SELECT id AS reporter_id, text AS reporter_name FROM '../../resources/reference_tables/reporter/*.parquet';
+    CREATE TABLE reporters AS SELECT id AS reporter_id, text AS reporter_name FROM '../../resources/reference_tables/reporter/*.parquet' WHERE id IN (156, 842);
     CREATE TABLE partners AS SELECT id AS partner_id, text AS partner_name FROM '../../resources/reference_tables/partner/*.parquet';
-    CREATE TABLE flows AS SELECT id AS flow_id, text AS flow_name FROM '../../resources/reference_tables/flow/*.parquet';
+    CREATE TABLE flows AS SELECT id AS flow_id, text AS flow_name FROM '../../resources/reference_tables/flow/*.parquet' WHERE id IN ('X', 'M');
     CREATE TABLE commodities AS SELECT id AS commodity_id FROM '../../resources/reference_tables/cmd_HS/*.parquet' WHERE aggrLevel = 0;
 """)
 
@@ -34,7 +34,7 @@ conn.execute(f"""
             p.partner_name,
             f.flow_id,
             f.flow_name,
-            c.commodity_id,
+            c.commodity_id AS cmdCode,
             y.year
         FROM reporters r
         CROSS JOIN partners p
