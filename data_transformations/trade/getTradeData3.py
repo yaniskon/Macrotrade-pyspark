@@ -4,6 +4,11 @@ from comtradeapicall import previewFinalData  # Updated import
 import json
 import time
 
+from pyspark.sql.types import StructType, StructField, StringType, IntegerType
+from comtradeapicall import previewFinalData  # Updated import
+import json
+import time
+
 # Initialize Spark session
 spark = SparkSession.builder \
     .appName("ComtradeParallelPreviewFetcher") \

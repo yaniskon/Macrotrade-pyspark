@@ -11,7 +11,7 @@ conn = duckdb.connect()
 # Read and create tables
 conn.execute(f"""
     CREATE TABLE reporters AS SELECT id AS reporter_id, text AS reporter_name FROM '../../resources/reference_tables/reporter/*.parquet' WHERE id IN (156, 842);
-    CREATE TABLE partners AS SELECT id AS partner_id, text AS partner_name FROM '../../resources/reference_tables/partner/*.parquet';
+    CREATE TABLE partners AS SELECT id AS partner_id, text AS partner_name FROM '../../resources/reference_tables/partner/*.parquet' WHERE id IN (156, 842);
     CREATE TABLE flows AS SELECT id AS flow_id, text AS flow_name FROM '../../resources/reference_tables/flow/*.parquet' WHERE id IN ('X', 'M');
     CREATE TABLE commodities AS SELECT id AS commodity_id FROM '../../resources/reference_tables/cmd_HS/*.parquet' WHERE aggrLevel = 0;
 """)
