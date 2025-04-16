@@ -3,7 +3,7 @@ import logging
 import sys
 from pyspark.sql import SparkSession
 
-from data_transformations.trade import getWorldShare_new
+from data_transformations.trade import get_query_plan_combo_getWorldShare
 LOG_FILENAME = 'GetWorldShareTradeProject.log'
 APP_NAME = "GetWorldShare: Ingest"
 
@@ -21,6 +21,6 @@ if __name__ == '__main__':
     logging.info("Application Initialized: " + app_name)
     input_ref_tables_path = sys.argv[1]
     output_path = sys.argv[2]
-    getWorldShare_new.run(spark, input_ref_tables_path, output_path)
+    get_query_plan_combo_getWorldShare.run(spark, input_ref_tables_path, output_path)
     logging.info("Application Done: " + spark.sparkContext.appName)
     spark.stop()
