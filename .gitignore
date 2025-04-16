@@ -87,6 +87,6 @@ requirements.txt
 .python-version
 .envrc
 output
-
+/data
 # batect
 .batect/caches/key
