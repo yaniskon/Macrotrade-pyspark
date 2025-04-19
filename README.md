@@ -91,13 +91,12 @@ You are allowed to customize your environment (having the test in vscode directl
 
 ## Jobs
 
-There are two exercises in this repo: Word Count, and Citibike.
+There are so far 2 jobs in this repo: Reference table list and the WorldShare data.
 
 Currently, these exist as skeletons, and have some **initial test cases** which are defined but some are skipped.
 
 The following section provides context over them.
 
-> ⚠️ do not try to solve the exercises ahead of the interview
 
 ### Code walk
 
@@ -128,7 +127,7 @@ The following section provides context over them.
 
 ```
 
-### Word Count
+### Refence List tables
 
 A NLP model is dependent on a specific input file. This job is supposed to preprocess a given text file to produce this
 input file for the NLP model (feature engineering). This job will count the occurrences of a word within the given text
@@ -162,14 +161,13 @@ A single `*.csv` file containing data similar to:
 #### Run the job
 
 ```bash
-poetry build && poetry run spark-submit \
-    --master local \
-    --py-files dist/data_transformations-*.whl \
-    jobs/word_count.py \
-    <INPUT_FILE_PATH> \
-    <OUTPUT_PATH>
+poetry run spark-submit jobs \ getWorldShareAnnual.py \ 
+    <INPUT_FILE_PATH>  \
+    <OUTPUT_PATH> 
 ```
-
+```bash
+poetry run spark-submit jobs/getWorldShareAnnual.py  data/yo.parquet data/worldshare/Annual
+```
 ### Citibike
 
 **_This problem uses data made publicly available by [Citibike](https://citibikenyc.com/), a New York based bike share company._**
