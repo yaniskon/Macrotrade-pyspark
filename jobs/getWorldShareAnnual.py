@@ -3,9 +3,9 @@ import logging
 import sys
 from pyspark.sql import SparkSession
 
-from data_transformations.trade import getWorldShare_new
+from data_transformations.trade import getWorldShare
 LOG_FILENAME = 'GetWorldShareTradeProject.log'
-APP_NAME = "GetWorldShare: Ingest"
+APP_NAME = "GetWorldShare Annual: Ingest"
 
 if __name__ == '__main__':
     logging.basicConfig(filename=LOG_FILENAME, level=logging.INFO)
