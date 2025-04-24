@@ -9,13 +9,10 @@ These jobs are using _PySpark_ to process larger volumes of data and are suppose
 
 1. **Get a working environment**  
    Either local ([local](#local-setup), or using [gitpod](#gitpod-setup))
-2. **Get a high-level understanding of the code and test dataset structure**
-3. Have your preferred text editor or IDE setup and ready to go.
+2. **Running the jobs, getting the data and having fun with world economic trade data**
+3. Further develop the capabilities of this spark application and deriving insights about the workings of the global economy
 
-**❌ Non-Goals**
 
-- solving the exercises / writing code
-  > ⚠️ The exercises will be given at the time of interview, and solved by pairing with the interviewer.
 
 ### Local Setup
 
@@ -31,11 +28,11 @@ Please make sure you have the following installed and can run them
 
 #### Windows users
 
-We recommend using WSL 2 on Windows for this exercise, due to the [lack of support](https://cwiki.apache.org/confluence/display/HADOOP2/WindowsProblems) of windows paths from Hadoop/Spark.
+It's highly recommended to use WSL 2 on Windows, due to the [lack of support](https://cwiki.apache.org/confluence/display/HADOOP2/WindowsProblems) of windows paths from Hadoop/Spark.
 
 Follow instructions on the [Windows official page](https://learn.microsoft.com/en-us/windows/wsl/setup/environment)
 
-> 💡 In case of issues, like missing permissions on the machine, please use the [gitpod setup](#gitpod-setup)
+> 💡 In case of issues, an easier way to use gitpod [gitpod setup](#gitpod-setup)
 
 #### Install all dependencies
 
@@ -47,7 +44,7 @@ poetry install
 
 Alternatively, you can setup the environment using
 
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/techops-recsys-lateral-hiring/dataengineer-transformations-python)
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/yaniskon/Macrotrade-pyspark)
 
 There's an initialize script setup that takes around 3 minutes to complete. Once you use paste this repository link in new Workspace, please wait until the packages are installed. After everything is setup, select Poetry's environment by clicking on thumbs up icon and navigate to Testing tab and hit refresh icon to discover tests.
 
@@ -80,18 +77,10 @@ poetry run mypy --ignore-missing-imports --disallow-untyped-calls --disallow-unt
 poetry run pylint data_transformations tests
 ```
 
-### Anything else?
-
-All commands are passing?  
-You are good to go!
-
-> ⚠️ do not try to solve the exercises ahead of the interview
-
-You are allowed to customize your environment (having the test in vscode directly for example): feel free to spend the time making this comfortable for you. This is not an expectation.
 
 ## Jobs
 
-There are so far 2 jobs in this repo: Reference table list and the WorldShare data.
+There are 2 jobs in this repo: Reference table list and the WorldShare data.
 
 Currently, these exist as skeletons, and have some **initial test cases** which are defined but some are skipped.
 
@@ -129,11 +118,27 @@ The following section provides context over them.
 
 ### Refence List tables
 
-A NLP model is dependent on a specific input file. This job is supposed to preprocess a given text file to produce this
-input file for the NLP model (feature engineering). This job will count the occurrences of a word within the given text
-file (corpus).
+# Metadata Tables Ingestion
 
-There is a dump of the datalake for this under `resources/word_count/words.txt` with a text file.
+The first step in our data processing pipeline is to extract and store all metadata tables. This process involves:
+
+1. Extracting metadata tables from the untradeapicall source
+2. Converting them into parquet format for efficient storage and access
+3. Saving them for later use in the pipeline
+
+This is accomplished by running the `referenceTables_ingest` job, which handles the extraction and transformation of these metadata tables into parquet files. These parquet files will serve as a reference for subsequent data processing steps, ensuring we have quick and efficient access to the metadata when needed.
+
+
+This initial step sets up the foundation for all subsequent data processing operations in our pipeline.
+
+```bash
+poetry run spark-submit jobs/referenceTables_ingest.py \ 
+    <OUTPUT_PATH> 
+```
+```bash example
+poetry run spark-submit jobs/referenceTables_ingest.py \ 
+    data/ref_tables
+```
 
 ```mermaid
 ---
@@ -168,6 +173,10 @@ poetry run spark-submit jobs \ getWorldShareAnnual.py \
 ```bash
 poetry run spark-submit jobs/getWorldShareAnnual.py  data/yo.parquet data/worldshare/Annual
 ```
+```bash
+poetry run spark-submit jobs/getWorldShare_query_plan.py data/ref_tables data/worldshare/util/reporter-year.parquet
+```
+
 ### Citibike
 
 **_This problem uses data made publicly available by [Citibike](https://citibikenyc.com/), a New York based bike share company._**

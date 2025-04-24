@@ -31,7 +31,7 @@ def run(spark: SparkSession, input_ref_tables_path: str, output_path: str):
         result = []
         for row in rows:
             try:
-                time.sleep(0.5)  # Be kind to the API (rate limit)
+                time.sleep(0.3)  # Be kind to the API (rate limit)
                 url = f"https://comtradeapi.un.org/public/v1/getWorldShare/C/M/?reporterCode={row.reporter_id}"
                 response = requests.get(url)
                 response.raise_for_status()
@@ -66,15 +66,15 @@ def run(spark: SparkSession, input_ref_tables_path: str, output_path: str):
     df = df.select(    
     F.col("reporter_id"),
     F.col("reporter_name"),
-    F.col("parsed_json.elapsedTime").alias("elapsed_time"),
-    F.col("parsed_json.error").alias("error"),
+    #F.col("parsed_json.elapsedTime").alias("elapsed_time"),
+    #F.col("parsed_json.error").alias("error"),
     F.explode("parsed_json.data").alias("data")
 )
 
 # Finally, select all the fields from the exploded data
     df = df.select(
-    "elapsed_time",
-    "error",
+    "reporter_id",
+    "reporter_name",
     "data.typeCode",
     "data.freqCode",
     "data.period",
