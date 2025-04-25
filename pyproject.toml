@@ -1,27 +1,36 @@
-[tool.poetry]
-name = "data_transformations"
+[project]
+name = "macrotrade-pyspark"
 version = "0.1.0"
 description = "data transformations"
-authors = ["ThoughtWorks <info@thoughtworks.com>"]
-license = "Apache-License-2.0"
+authors = [
+    {name = "Yanis", email = "konstantinidisj@gmail.com"}
+]
+license = "Apache-2.0"
+dependencies = [
+    "numpy>=1.20.2,<2.0.0",
+    "pandas>=2.0.0,<3.0.0",
+    "pyarrow>=12.0.0,<13.0.0",
+    "requests>=2.32.3,<3.0.0",
+    "comtradeapicall>=1.2.1,<2.0.0",
+    "duckdb>=1.2.2,<2.0.0",
+    "pyspark==3.5.1"
+]
+requires-python = ">=3.11,<3.12"
 
-[tool.poetry.dependencies]
-numpy = "^1.20.2"
-pandas = "^2.0.0"
-pyarrow = "^12.0.0"
-# This is pinned to stay in sync with the version
-# That gets downloaded in `.gitpod.Dockerfile`
-pyspark = "3.5.1"
-python = "~3.11"
-requests = "^2.32.3"
-comtradeapicall = "^1.2.1"
-duckdb = "^1.2.2"
+[project.optional-dependencies]
+dev = [
+    "pylint>=2.8.2,<3.0.0",
+    "pytest>=6.2.4,<7.0.0",
+    "mypy>=0.990,<1.0.0"
+]
 
-[tool.poetry.dev-dependencies]
-pylint = "^2.8.2"
-pytest = "^6.2.4"
-mypy = "^0.990"
+#[project.scripts]
+#run-spark = "data_transformations.trade:main"
+
+[tool.setuptools]
+packages = ["data_transformations", "jobs", "resources"]
+package-dir = {"" = "."}
 
 [build-system]
-requires = ["poetry-core>=1.0.0"]
-build-backend = "poetry.core.masonry.api"
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
