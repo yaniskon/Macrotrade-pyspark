@@ -24,9 +24,6 @@ dev = [
     "mypy>=0.990,<1.0.0"
 ]
 
-#[project.scripts]
-#run-spark = "data_transformations.trade:main"
-
 [tool.setuptools]
 packages = ["data_transformations", "jobs", "resources"]
 package-dir = {"" = "."}

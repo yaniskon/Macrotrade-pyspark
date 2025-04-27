@@ -43,6 +43,7 @@ def run(spark: SparkSession, input_ref_tables_path: str, output_path: str):
                     json.dumps(json_data)
                 ))
                 logging.info(f"✅ Processed: {row.reporter_name}")
+                print(f"✅ Processed: {row.reporter_name}")
             except Exception as e:
                 logging.error(f"[ERROR] Failed for reporter_id={row.reporter_id}: {e}")
         return iter(result)

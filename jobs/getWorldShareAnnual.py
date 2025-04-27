@@ -21,6 +21,6 @@ if __name__ == '__main__':
     logging.info("Application Initialized: " + app_name)
     input_ref_tables_path = sys.argv[1]
     output_path = sys.argv[2]
-    getWorldShare_new.run(spark, input_ref_tables_path, output_path)
+    getWorldShare.run(spark, input_ref_tables_path, output_path)
     logging.info("Application Done: " + spark.sparkContext.appName)
     spark.stop()

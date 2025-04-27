@@ -1,7 +1,7 @@
 import logging
 import sys
 from pyspark.sql import SparkSession
-from data_transformations.trade.getDATariffline import run
+from data_transformations.trade import getDATariffline
 
 LOG_FILENAME = 'datariffline.log'
 APP_NAME = "DATariffline: Ingest"
@@ -19,6 +19,6 @@ if __name__ == '__main__':
     app_name = sc.appName
     logging.info("Application Initialized: " + app_name)
     output_path = sys.argv[1]
-    run(spark, output_path)
+    getDATariffline.run(spark, output_path)
     logging.info("Application Done: " + spark.sparkContext.appName)
     spark.stop() 
