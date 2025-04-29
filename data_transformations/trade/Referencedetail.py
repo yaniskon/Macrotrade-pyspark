@@ -2,6 +2,8 @@ import logging
 from typing import List
 from pathlib import Path
 
+import json
+
 import pandas as pd
 import requests
 from pyspark.sql import SparkSession
@@ -19,12 +21,16 @@ def sanitize_columns(columns: List[str]) -> List[str]:
 
 def fetch_reference_links() -> pd.DataFrame:
     logger.info("Fetching reference list from comtradeapicall...")
-    return comtradeapicall.listReference()
-
+    response = requests.get('https://comtradeapi.un.org/files/v1/app/reference/ListofReferences.json', verify = False)
+    data = response.json()
+    extracted_data = [{'category': item['category'], 'fileuri': item['fileuri']} for item in data['results']]
+    df = pd.DataFrame(extracted_data)
+    print(df)
+    return df
 
 def fetch_and_convert_to_spark(spark: SparkSession, url: str) -> 'DataFrame':
     logger.info("Fetching JSON from: %s", url)
-    response = requests.get(url)
+    response = requests.get(url, verify = False)
     response.raise_for_status()
     json_data = response.json()
 
@@ -49,7 +55,7 @@ def fetch_and_convert_to_spark(spark: SparkSession, url: str) -> 'DataFrame':
 
 def run(spark: SparkSession, output_dir: str) -> None:
     reference_df = fetch_reference_links()
-
+    
     for _, row in reference_df.iterrows():
         category = row['category'].replace(":", "_")
         file_uri = row['fileuri']
