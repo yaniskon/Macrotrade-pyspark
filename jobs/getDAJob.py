@@ -1,26 +1,24 @@
 import logging
-
 import sys
 from pyspark.sql import SparkSession
+from data_transformations.trade import getDA
 
-from data_transformations.trade import getWorldShare
-LOG_FILENAME = 'GetWorldShareTradeProject.log'
-APP_NAME = "GetWorldShare Monthly: Ingest"
+LOG_FILENAME = 'DA.log'
+APP_NAME = "DA: Ingest"
 
 if __name__ == '__main__':
     logging.basicConfig(filename=LOG_FILENAME, level=logging.INFO)
     logging.info(sys.argv)
 
-    if len(sys.argv) != 3:
-        logging.warning("Output path are required")
+    if len(sys.argv) != 2:
+        logging.warning("Output path is required")
         sys.exit(1)
 
     spark = SparkSession.builder.appName(APP_NAME).getOrCreate()
     sc = spark.sparkContext
     app_name = sc.appName
     logging.info("Application Initialized: " + app_name)
-    input_ref_tables_path = sys.argv[1]
-    output_path = sys.argv[2]
-    getWorldShare.run(spark, input_ref_tables_path, output_path)
+    output_path = sys.argv[1]
+    getDA.run(spark, output_path)
     logging.info("Application Done: " + spark.sparkContext.appName)
-    spark.stop()
+    spark.stop() 
