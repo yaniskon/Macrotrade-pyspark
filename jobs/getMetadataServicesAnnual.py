@@ -3,9 +3,9 @@ import logging
 import sys
 from pyspark.sql import SparkSession
 import time
-from data_transformations.trade import getWorldShare
-LOG_FILENAME = 'GetWorldShareTradeCommoditiesAnnualProject.log'
-APP_NAME = "GetWorldShare Annual: Ingest"
+from data_transformations.trade import getMetadata
+LOG_FILENAME = 'GetMetadataServicesAnnualProject.log'
+APP_NAME = "GetMetadataServices Annual: Ingest"
 
 if __name__ == '__main__':
     logging.basicConfig(filename=LOG_FILENAME, level=logging.INFO)
@@ -20,6 +20,6 @@ if __name__ == '__main__':
     app_name = sc.appName
     logging.info("Application Initialized: " + app_name)
     output_path = sys.argv[1]
-    getWorldShare.run(spark, output_path, 'C', 'A')
+    getMetadata.run(spark, output_path, 'S', 'A', 'EB')
     logging.info("Application Done: " + spark.sparkContext.appName)
     spark.stop()
