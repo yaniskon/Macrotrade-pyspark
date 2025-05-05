@@ -4,21 +4,21 @@ from pyspark.sql import SparkSession
 from pyspark.sql.types import StructType, StructField, StringType, IntegerType, BooleanType, LongType
 from pyspark.sql import functions as F
 
-def run(spark: SparkSession, output_path: str, subscription_key: str):
+def run(spark: SparkSession, output_path: str):
     logging.info("Starting DA data fetch")
+
     # === Step 1: Fetch data from API ===
-    def fetch_da_data(subscription_key):
+    def fetch_da_data():
         try:
-            url = "https://comtradeapi.un.org/data/v1/getDa/C/A/HS"
-            headers = {'Ocp-Apim-Subscription-Key': subscription_key}
-            response = requests.get(url, headers=headers)
+            url = "https://comtradeapi.un.org/public/v1/getDA/C/A/HS"
+            response = requests.get(url)
             response.raise_for_status()
             return response.json()
         except Exception as e:
             logging.error(f"[ERROR] Failed to fetch data: {e}")
             return None
 
-    api_data = fetch_da_data(subscription_key)
+    api_data = fetch_da_data()
     if not api_data:
         raise Exception("Failed to fetch data from API")
 
