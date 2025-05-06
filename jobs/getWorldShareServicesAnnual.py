@@ -1,10 +1,11 @@
 import logging
+
 import sys
 from pyspark.sql import SparkSession
-from data_transformations.trade import getDATariffline
 
-LOG_FILENAME = 'datariffline.log'
-APP_NAME = "DATariffline: Ingest"
+from data_transformations.trade import getWorldShare
+LOG_FILENAME = 'GetWorldShareTradeServicesAnnualProject.log'
+APP_NAME = "GetWorldShare Services Annual: Ingest"
 
 if __name__ == '__main__':
     logging.basicConfig(filename=LOG_FILENAME, level=logging.INFO)
@@ -19,6 +20,6 @@ if __name__ == '__main__':
     app_name = sc.appName
     logging.info("Application Initialized: " + app_name)
     output_path = sys.argv[1]
-    getDATariffline.run(spark, output_path)
+    getWorldShare.run(spark, output_path, 'S', 'A')
     logging.info("Application Done: " + spark.sparkContext.appName)
-    spark.stop() 
+    spark.stop()
