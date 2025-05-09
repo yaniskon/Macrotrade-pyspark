@@ -7,10 +7,10 @@ from pyspark.sql import functions as F
 def run(spark: SparkSession, output_path: str, subscription_key: str):
     logging.info("Starting DA data fetch")
     # === Step 1: Fetch data from API ===
-    def fetch_da_data(subscription_key):
+    def fetch_da_data(api_key):
         try:
             url = "https://comtradeapi.un.org/data/v1/getDa/C/A/HS"
-            headers = {'Ocp-Apim-Subscription-Key': subscription_key}
+            headers = {'Ocp-Apim-Subscription-Key': api_key}
             response = requests.get(url, headers=headers)
             response.raise_for_status()
             return response.json()
